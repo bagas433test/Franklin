@@ -12,8 +12,10 @@ jobs:
           node-version: '20'
       - run: npm install -g @blockrun/franklin
       
-      # Ini adalah perintah yang benar untuk cek saldo
-      - run: franklin balance
+      # Kita coba eksekusi dengan cara ini supaya dia 'melihat' kuncinya
+      - run: |
+          echo "Memulai cek saldo..."
+          franklin balance
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           RPC_URL: 'https://mainnet.base.org'
