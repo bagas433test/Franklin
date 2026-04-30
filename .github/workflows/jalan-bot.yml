@@ -6,8 +6,8 @@ jobs:
   run:
     runs-on: ubuntu-latest
     env:
-      # Kita pasang variable di level job agar terbaca oleh semua step
-      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      # Kita coba ganti nama variabelnya ke format yang mungkin dikenali Franklin
+      FRANKLIN_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       RPC_URL: 'https://mainnet.base.org'
     steps:
       - uses: actions/checkout@v4
@@ -17,10 +17,8 @@ jobs:
       
       - run: npm install -g @blockrun/franklin
       
-      - name: Konfigurasi dan Cek Saldo
+      - name: Jalankan Cek Saldo
         run: |
-          # Perintah ini memaksa Franklin menggunakan Private Key dari Secrets
-          franklin config set private_key "$PRIVATE_KEY"
-          
+          # Jangan gunakan 'franklin config set' lagi
           echo "Menjalankan pengecekan saldo..."
           franklin balance
