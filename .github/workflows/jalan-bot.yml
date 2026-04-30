@@ -1,8 +1,8 @@
 name: Jalankan Franklin Agent
 on:
-  workflow_dispatch: # Tombol manual
+  workflow_dispatch:
   schedule:
-    - cron: '0 * * * *' # Jalan otomatis tiap 1 jam
+    - cron: '0 * * * *' # Jalan tiap jam
 
 jobs:
   run:
@@ -13,8 +13,8 @@ jobs:
         with:
           node-version: '20'
       - run: npm install -g @blockrun/franklin
-      - run: franklin telegram --once
+      # Ubah bagian bawah ini:
+      - run: franklin "Cek saldo saya dan laporkan hasilnya"
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           RPC_URL: 'https://mainnet.base.org'
