@@ -11,8 +11,9 @@ jobs:
         with:
           node-version: '20'
       - run: npm install -g @blockrun/franklin
-      # Perintah ini akan menampilkan cara pakai yang benar di log
-      - run: franklin --help 
+      
+      # Ini adalah perintah yang benar untuk cek saldo
+      - run: franklin balance
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           RPC_URL: 'https://mainnet.base.org'
