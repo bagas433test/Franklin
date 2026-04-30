@@ -1,0 +1,20 @@
+name: Jalankan Franklin Agent
+on:
+  workflow_dispatch: # Tombol manual
+  schedule:
+    - cron: '0 * * * *' # Jalan otomatis tiap 1 jam
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install -g @blockrun/franklin
+      - run: franklin telegram --once
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          RPC_URL: 'https://mainnet.base.org'
