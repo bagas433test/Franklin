@@ -1,8 +1,6 @@
 name: Jalankan Franklin Agent
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 * * * *' # Jalan tiap jam
 
 jobs:
   run:
@@ -13,8 +11,8 @@ jobs:
         with:
           node-version: '20'
       - run: npm install -g @blockrun/franklin
-      # Ubah bagian bawah ini:
-      - run: franklin "Cek saldo saya dan laporkan hasilnya"
+      # Perintah ini akan menampilkan cara pakai yang benar di log
+      - run: franklin --help 
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           RPC_URL: 'https://mainnet.base.org'
