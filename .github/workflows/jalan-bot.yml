@@ -12,9 +12,14 @@ jobs:
           node-version: '20'
       - run: npm install -g @blockrun/franklin
       
-      # Kita coba eksekusi dengan cara ini supaya dia 'melihat' kuncinya
+      # BARIS DEBUG INI PENTING:
       - run: |
-          echo "Memulai cek saldo..."
+          echo "Memulai pengecekan kunci..."
+          if [ -z "$PRIVATE_KEY" ]; then 
+            echo "STATUS: KUNCI TIDAK TERDETEKSI (Variabel kosong)"
+          else 
+            echo "STATUS: KUNCI TERDETEKSI (Panjang karakter: ${#PRIVATE_KEY})"
+          fi
           franklin balance
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
