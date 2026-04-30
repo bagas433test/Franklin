@@ -5,22 +5,22 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
+    env:
+      # Kita pasang variable di level job agar terbaca oleh semua step
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      RPC_URL: 'https://mainnet.base.org'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      
       - run: npm install -g @blockrun/franklin
       
-      # BARIS DEBUG INI PENTING:
-      - run: |
-          echo "Memulai pengecekan kunci..."
-          if [ -z "$PRIVATE_KEY" ]; then 
-            echo "STATUS: KUNCI TIDAK TERDETEKSI (Variabel kosong)"
-          else 
-            echo "STATUS: KUNCI TERDETEKSI (Panjang karakter: ${#PRIVATE_KEY})"
-          fi
+      - name: Konfigurasi dan Cek Saldo
+        run: |
+          # Perintah ini memaksa Franklin menggunakan Private Key dari Secrets
+          franklin config set private_key "$PRIVATE_KEY"
+          
+          echo "Menjalankan pengecekan saldo..."
           franklin balance
-        env:
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          RPC_URL: 'https://mainnet.base.org'
